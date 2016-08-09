@@ -14,6 +14,10 @@ val t_to_js : t -> Ojs.t
 
 val t_of_js : Ojs.t -> t
 
+val node_module_of_js : Ojs.t -> node_module
+
+val node_module_to_js : node_module -> Ojs.t
+
 val require_option_of_js : Ojs.t -> require_option
 
 val require_option_to_js : require_option -> Ojs.t
