@@ -8,7 +8,7 @@ ocaml-node is a binding to node in OCaml written with [gen_js_api](https://githu
 
 ## How to install?
 
-You need to switch to ocaml **4.03.0**:
+You need to switch to OCaml >= **4.03.0** (due to gen_js_api):
 
 `opam switch 4.03.0`
 
@@ -32,7 +32,7 @@ var nightmare = require("nightmare");
 var nightmareAux = nightmare({show : true});
 ```
 
-Equivalent in OCaml using gen_js_api (for Ojs.t type):
+Equivalent in OCaml using [gen_js_api](https://github.com/lexifi/gen_js_api) (for Ojs.t type):
 
 ```OCaml
 let jsonfile  = Node.require "jsonfile" in
