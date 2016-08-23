@@ -371,3 +371,8 @@ module Path :
     (* win32 *)
     (* ----- *)
   end
+
+module Process: sig
+  val argv : string list
+end
+[@js.scope "process"]
