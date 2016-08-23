@@ -43,44 +43,119 @@ val require_option_to_js : require_option -> Ojs.t
 (* Node modules representation *)
 (* --------------------------- *)
 
+(*
 module DNS :
   sig
-    type t
-
-    [@@@js.stop]
-    val dns : t
-    [@@@js.start]
-
-    [@@@js.implem
-      let dns : t = require "dns"
-    ]
   end
+  [@js.scope "dns"]
+*)
+
 
 module FS :
   sig
-    type t
+    module Stats :
+      sig
+        type t
 
-    [@@@js.stop]
-    val fs : t
-    [@@@js.start]
+        (* ------- *)
+        (* Getters *)
 
-    [@@@js.implem
-      let fs : t = require "fs"
-    ]
+        val dev :
+          t ->
+          int
+
+        val ino :
+          t ->
+          int
+
+        val mode :
+          t ->
+          int
+
+        val nlink :
+          t ->
+          int
+
+        val uid :
+          t ->
+          int
+
+        val gid :
+          t ->
+          int
+
+        val rdev :
+          t ->
+          int
+
+        val size :
+          t ->
+          int
+
+        val blksize :
+          t ->
+          int
+
+        val atime :
+          t ->
+          Js_date.t
+
+        val mtime :
+          t ->
+          Js_date.t
+
+        val ctime :
+          t ->
+          Js_date.t
+
+        val birthtime :
+          t ->
+          Js_date.t
+
+
+        (* Getters *)
+        (* ------- *)
+
+        val is_file :
+          t ->
+          unit ->
+          bool
+
+        val is_directory :
+          t ->
+          unit ->
+          bool
+
+        val is_block_device :
+          t ->
+          unit ->
+          bool
+
+        val is_character_device :
+          t ->
+          unit ->
+          bool
+
+        val is_symbolink_link :
+          t ->
+          unit ->
+          bool
+
+        val is_FIFO :
+          t ->
+          unit ->
+          bool
+
+        val is_socket :
+          t ->
+          unit ->
+          bool
+      end
   end
+  [@js.scope "fs"]
 
 module OS :
   sig
-    type t
-
-    [@@@js.stop]
-    val os : t
-    [@@@js.start]
-
-    [@@@js.implem
-      let os : t = require "os"
-    ]
-
     type architecture =
       | Arm [@js "arm"]
       | Arm64 [@js "arm64"]
@@ -122,20 +197,20 @@ module OS :
         val times : t -> Times.t
       end
 
-    val cpus : t -> CPU.t list
+    val cpus : CPU.t list
 
-    val eol : t -> architecture [@@js.get "EOL"]
+    val eol : architecture [@@js.global "EOL"]
 
     type endianness =
       | BE [@js "BE"]
       | LE [@js "LE"]
       [@@js.enum]
 
-    val endianness : t -> endianness
+    val endianness : endianness
 
-    val freemem : t -> int
+    val freemem : int
 
-    val hostname : t -> string
+    val hostname : string
 
     (* ------------ *)
     (* Load average *)
@@ -161,7 +236,7 @@ module OS :
         Ojs.int_of_js (Ojs.array_get (Ojs.t_to_js s) 2)
     ]
 
-    val loadavg : t -> loadavg
+    val loadavg : loadavg
 
     (* Load average *)
     (* ------------ *)
@@ -179,7 +254,7 @@ module OS :
       | Win32 [@js "win32"]
       [@@js.enum]
 
-    val platforms : t -> platform
+    val platforms : platform
 
     (* platform *)
     (* -------- *)
@@ -187,39 +262,29 @@ module OS :
     (* ------- *)
     (* release *)
 
-    val release : t -> string
+    val release : string
 
     (* release *)
     (* ------- *)
 
-    val totalmem : t -> int
+    val totalmem : int
 
     (* FIXME: What about typing it? What are all possible values? *)
-    val os_type : t -> string
+    val os_type : string
 
 
-    val uptime : t -> float
+    val uptime : float
 
     (* FIXME: userInfo *)
 
     (* FIXME: Constants *)
 
   end
+[@js.scope "os"]
 
 module Path :
   sig
-    type t
-
-    [@@@js.stop]
-    val path : t
-    [@@@js.start]
-
-    [@@@js.implem
-      let path : t = require "path"
-    ]
-
     val basename :
-      t           ->
       string      ->
       ?ext:string ->
       unit        ->
@@ -231,25 +296,21 @@ module Path :
       [@@js.enum]
 
     val delimiter     :
-      t ->
       delimiter
 
     val delimiter_str :
-      t ->
       string
 
     val dirname       :
-      t ->
       string
 
     val extname       :
-      t ->
       string
 
     (* ------ *)
     (* format *)
 
-    type path_object = Ojs.t
+    type path_object
 
     val dir_of_path_object :
       path_object ->
@@ -283,7 +344,6 @@ module Path :
       [@@js.builder]
 
     val format_ :
-      t           ->
       path_object ->
       string
       [@@js.call "format"]
@@ -295,7 +355,6 @@ module Path :
     (* isAbsolutePath *)
 
     val is_absolute_path :
-      t      ->
       string ->
       bool
 
@@ -313,7 +372,6 @@ module Path :
     (* normalize *)
 
     val normalize :
-      t      ->
       string ->
       string
 
@@ -324,7 +382,6 @@ module Path :
     (* parse *)
 
     val parse :
-      t      ->
       string ->
       path_object
 
@@ -341,7 +398,6 @@ module Path :
     (* relative *)
 
     val relative :
-      t      ->
       string ->
       string ->
       string
@@ -359,7 +415,6 @@ module Path :
     (* sep *)
 
     val sep :
-      t ->
       string
 
     (* sep *)
@@ -371,3 +426,59 @@ module Path :
     (* win32 *)
     (* ----- *)
   end
+[@js.scope "os"]
+
+(*
+module Stream :
+  sig
+  end
+[@js.scope "stream"]
+*)
+
+module HTTP :
+  sig
+    module Agent :
+      sig
+        type t
+
+        type options = Ojs.t
+
+        val create_option :
+          ?keep_alive:bool ->
+          ?keep_alive_msecs:int ->
+          ?max_sockets:int ->
+          ?max_free_sockets:int ->
+          unit ->
+          t
+          [@@js.builder]
+
+        val create :
+          ?options:options ->
+          unit ->
+          t
+      end
+  end
+[@js.scope "http"]
+
+module Crypto :
+  sig
+    module Certificate :
+      sig
+        type t
+
+        val new_certificate :
+          unit -> t
+          [@@js.new "Certificate"]
+
+        val export_challenge :
+          t ->
+          string ->
+          string
+
+        val export_public_key :
+          t ->
+          string ->
+          string
+      end
+  end
+[@js.scope "crypto"]
