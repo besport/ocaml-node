@@ -43,16 +43,31 @@ val require_option_to_js : require_option -> Ojs.t
 (* Node modules representation *)
 (* --------------------------- *)
 
-(*
 module DNS :
   sig
-  end
-  [@js.scope "dns"]
-*)
+    type t
 
+     [@@@js.stop]
+     val dns : t
+     [@@@js.start]
+
+     [@@@js.implem
+       let dns : t = require "dns"
+    ]
+  end
 
 module FS :
   sig
+    type t
+
+    [@@@js.stop]
+    val fs : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let fs : t = require "fs"
+    ]
+
     module Stats :
       sig
         type t
@@ -152,10 +167,19 @@ module FS :
           bool
       end
   end
-  [@js.scope "fs"]
 
 module OS :
   sig
+    type t
+
+    [@@@js.stop]
+    val os : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let os : t = require "os"
+    ]
+
     type architecture =
       | Arm [@js "arm"]
       | Arm64 [@js "arm64"]
@@ -197,20 +221,20 @@ module OS :
         val times : t -> Times.t
       end
 
-    val cpus : CPU.t list
+    val cpus : t -> CPU.t list
 
-    val eol : architecture [@@js.global "EOL"]
+    val eol : t -> architecture [@@js.global "EOL"]
 
     type endianness =
       | BE [@js "BE"]
       | LE [@js "LE"]
       [@@js.enum]
 
-    val endianness : endianness
+    val endianness : t -> endianness
 
-    val freemem : int
+    val freemem : t -> int
 
-    val hostname : string
+    val hostname : t -> string
 
     (* ------------ *)
     (* Load average *)
@@ -236,7 +260,7 @@ module OS :
         Ojs.int_of_js (Ojs.array_get (Ojs.t_to_js s) 2)
     ]
 
-    val loadavg : loadavg
+    val loadavg : t -> loadavg
 
     (* Load average *)
     (* ------------ *)
@@ -254,7 +278,7 @@ module OS :
       | Win32 [@js "win32"]
       [@@js.enum]
 
-    val platforms : platform
+    val platforms : t -> platform
 
     (* platform *)
     (* -------- *)
@@ -262,29 +286,39 @@ module OS :
     (* ------- *)
     (* release *)
 
-    val release : string
+    val release : t -> string
 
     (* release *)
     (* ------- *)
 
-    val totalmem : int
+    val totalmem : t -> int
 
     (* FIXME: What about typing it? What are all possible values? *)
-    val os_type : string
+    val os_type : t -> string
 
 
-    val uptime : float
+    val uptime : t -> float
 
     (* FIXME: userInfo *)
 
     (* FIXME: Constants *)
 
   end
-[@js.scope "os"]
 
 module Path :
   sig
+    type t
+
+    [@@@js.stop]
+    val path : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let path : t = require "path"
+    ]
+
     val basename :
+      t           ->
       string      ->
       ?ext:string ->
       unit        ->
@@ -296,15 +330,19 @@ module Path :
       [@@js.enum]
 
     val delimiter     :
+      t           ->
       delimiter
 
     val delimiter_str :
+      t           ->
       string
 
     val dirname       :
+      t           ->
       string
 
     val extname       :
+      t           ->
       string
 
     (* ------ *)
@@ -344,6 +382,7 @@ module Path :
       [@@js.builder]
 
     val format_ :
+      t           ->
       path_object ->
       string
       [@@js.call "format"]
@@ -355,6 +394,7 @@ module Path :
     (* isAbsolutePath *)
 
     val is_absolute_path :
+      t      ->
       string ->
       bool
 
@@ -372,6 +412,7 @@ module Path :
     (* normalize *)
 
     val normalize :
+      t      ->
       string ->
       string
 
@@ -382,6 +423,7 @@ module Path :
     (* parse *)
 
     val parse :
+      t      ->
       string ->
       path_object
 
@@ -398,6 +440,7 @@ module Path :
     (* relative *)
 
     val relative :
+      t      ->
       string ->
       string ->
       string
@@ -415,6 +458,7 @@ module Path :
     (* sep *)
 
     val sep :
+      t      ->
       string
 
     (* sep *)
@@ -426,22 +470,39 @@ module Path :
     (* win32 *)
     (* ----- *)
   end
-[@js.scope "path"]
 
 module Process: sig
   val argv : string list
 end
 [@js.scope "process"]
 
-(*
 module Stream :
   sig
+    type t
+
+    [@@@js.stop]
+    val stream : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let stream : t = require "stream"
+    ]
+
+
   end
-[@js.scope "stream"]
-*)
 
 module HTTP :
   sig
+    type t
+
+    [@@@js.stop]
+    val http : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let http : t = require "http"
+    ]
+
     module Agent :
       sig
         type t
@@ -463,10 +524,19 @@ module HTTP :
           t
       end
   end
-[@js.scope "http"]
 
 module Crypto :
   sig
+    type t
+
+    [@@@js.stop]
+    val crypto : t
+    [@@@js.start]
+
+    [@@@js.implem
+      let crypto : t = require "crypto"
+    ]
+
     module Certificate :
       sig
         type t
@@ -486,4 +556,3 @@ module Crypto :
           string
       end
   end
-[@js.scope "crypto"]
