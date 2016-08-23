@@ -551,20 +551,29 @@ module Crypto :
   end
 
 module Process: sig
-  val abort: unit -> unit [@@js.global "abort"]
-  val arch: string
-  val argv: string list
-  val argv0: string
-  val chdir: string -> unit
-  val config: Ojs.t
-  val connected: bool
+  type t
+
+  [@@@js.stop]
+  val process : t
+  [@@@js.start]
+
+  [@@@js.implem
+    let process : t = require "process"
+  ]
+
+  val abort: t -> unit -> unit
+  val arch: t -> string
+  val argv: t -> string list
+  val argv0: t -> string
+  val chdir: t -> string -> unit
+  val config: t -> Ojs.t
+  val connected: t -> bool
   (*val cpu_usage*)
-  val cwd: unit -> string
-  val disconnect: unit -> unit [@@js.global "disconnect"]
-  val env: Ojs.t
+  val cwd: t -> unit -> string
+  val disconnect: t -> unit -> unit
+  val env: t -> Ojs.t
   (* TODO *)
-  val exec_path: string
-  val exit_: int -> unit [@@js.global "exit"]
-  val exit_code: int
+  val exec_path: t -> string
+  val exit_: t -> int -> unit [@@js.call "exit"]
+  val exit_code: t -> int
 end
-[@js.scope "process"]
