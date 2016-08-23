@@ -471,11 +471,6 @@ module Path :
     (* ----- *)
   end
 
-module Process: sig
-  val argv : string list
-end
-[@js.scope "process"]
-
 module Stream :
   sig
     type t
@@ -487,8 +482,6 @@ module Stream :
     [@@@js.implem
       let stream : t = require "stream"
     ]
-
-
   end
 
 module HTTP :
@@ -556,3 +549,22 @@ module Crypto :
           string
       end
   end
+
+module Process: sig
+  val abort: unit -> unit [@@js.global "abort"]
+  val arch: string
+  val argv: string list
+  val argv0: string
+  val chdir: string -> unit
+  val config: Ojs.t
+  val connected: bool
+  (*val cpu_usage*)
+  val cwd: unit -> string
+  val disconnect: unit -> unit [@@js.global "disconnect"]
+  val env: Ojs.t
+  (* TODO *)
+  val exec_path: string
+  val exit_: int -> unit [@@js.global "exit"]
+  val exit_code: int
+end
+[@js.scope "process"]
