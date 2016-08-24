@@ -1,0 +1,22 @@
+opam-version: "1.2"
+name:         "ocaml-node"
+maintainer:   "BeSport"
+author:       "Omar Chebib, Danny Willems (contact@danny-willems.be)"
+
+homepage:     "https://github.com/besport/ocaml-node"
+bug-reports:  "https://github.com/besport/ocaml-node/issues"
+
+dev-repo:     "https://github.com/besport/ocaml-node.git"
+
+license:      "LGPL-3.0 with OCaml linking exception"
+
+version:      "0.0.1"
+
+build: [make "build"]
+install: [make "install"]
+remove: [make "remove"]
+
+depends: [
+  "gen_js_api"
+]
+available: [ ocaml-version >= "4.03.0" ]
