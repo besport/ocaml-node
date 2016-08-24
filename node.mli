@@ -48,11 +48,11 @@ module DNS :
     type t
 
      [@@@js.stop]
-     val dns : t
+     val dns : unit -> t
      [@@@js.start]
 
      [@@@js.implem
-       let dns : t = require "dns"
+       let dns () = require "dns"
     ]
   end
 
@@ -61,11 +61,11 @@ module FS :
     type t
 
     [@@@js.stop]
-    val fs : t
+    val fs : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let fs : t = require "fs"
+      let fs () = require "fs"
     ]
 
     module Stats :
@@ -173,11 +173,11 @@ module OS :
     type t
 
     [@@@js.stop]
-    val os : t
+    val os : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let os : t = require "os"
+      let os () : t = require "os"
     ]
 
     type architecture =
@@ -310,11 +310,11 @@ module Path :
     type t
 
     [@@@js.stop]
-    val path : t
+    val path : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let path : t = require "path"
+      let path () : t = require "path"
     ]
 
     val basename :
@@ -476,11 +476,11 @@ module Stream :
     type t
 
     [@@@js.stop]
-    val stream : t
+    val stream : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let stream : t = require "stream"
+      let stream () : t = require "stream"
     ]
   end
 
@@ -489,11 +489,11 @@ module HTTP :
     type t
 
     [@@@js.stop]
-    val http : t
+    val http : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let http : t = require "http"
+      let http () : t = require "http"
     ]
 
     module Agent :
@@ -523,11 +523,11 @@ module Crypto :
     type t
 
     [@@@js.stop]
-    val crypto : t
+    val crypto : unit -> t
     [@@@js.start]
 
     [@@@js.implem
-      let crypto : t = require "crypto"
+      let crypto () : t = require "crypto"
     ]
 
     module Certificate :
@@ -554,11 +554,11 @@ module Process: sig
   type t
 
   [@@@js.stop]
-  val process : t
+  val process : unit -> t
   [@@@js.start]
 
   [@@@js.implem
-    let process : t = require "process"
+    let process : unit -> t = fun () -> require "process"
   ]
 
   val abort: t -> unit -> unit
