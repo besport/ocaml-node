@@ -12,6 +12,11 @@ You need to switch to OCaml >= **4.03.0** (due to gen_js_api):
 
 `opam switch 4.03.0`
 
+You also need
+[ocaml-js-stdlib](https://github.com/dannywillems/ocaml-js-stdlib).
+
+`opam pin add ocaml-js-stdlib https://github.com/dannywillems/ocaml-js-stdlib.git`
+
 To install this package use the command:
 
 `opam pin add ocaml-node https://github.com/besport/ocaml-node.git`
