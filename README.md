@@ -4,7 +4,7 @@
 
 ## What is ocaml-node?
 
-ocaml-node is a binding to node in OCaml written with [gen_js_api](https://github.com/LexiFi/gen_js_api). It will let you use its functions directly in ocaml
+ocaml-node is a binding to NodeJS Core in OCaml written with [gen_js_api](https://github.com/LexiFi/gen_js_api). It will let you use its functions directly in OCaml.
 
 ## How to install?
 
