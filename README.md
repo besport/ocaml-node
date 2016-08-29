@@ -4,13 +4,18 @@
 
 ## What is ocaml-node?
 
-ocaml-node is a binding to node in OCaml written with [gen_js_api](https://github.com/LexiFi/gen_js_api). It will let you use its functions directly in ocaml
+ocaml-node is a binding to NodeJS Core in OCaml written with [gen_js_api](https://github.com/LexiFi/gen_js_api). It will let you use its functions directly in OCaml.
 
 ## How to install?
 
 You need to switch to OCaml >= **4.03.0** (due to gen_js_api):
 
 `opam switch 4.03.0`
+
+You also need
+[ocaml-js-stdlib](https://github.com/dannywillems/ocaml-js-stdlib).
+
+`opam pin add ocaml-js-stdlib https://github.com/dannywillems/ocaml-js-stdlib.git`
 
 To install this package use the command:
 
